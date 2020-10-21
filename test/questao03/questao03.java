@@ -25,12 +25,54 @@ class questao03 {
 		CartorioEleitoral cartorioMock = mock(CartorioEleitoral.class);
 		VerificadorEleitoral ver = new VerificadorEleitoral(cartorioMock);
 		
+		int idade = 16;
+		String cpf = "12345678910";
+		
+		when(cartorioMock.verificar(cpf)).thenReturn("OK");
+		String res = ver.consultarSituacao(idade, cpf);
+			
+		assertEquals("voto facultativo", res);
+	}
+	
+	@Test
+	void testePendencia() throws Exception {
+		CartorioEleitoral cartorioMock = mock(CartorioEleitoral.class);
+		VerificadorEleitoral ver = new VerificadorEleitoral(cartorioMock);
+		
+		int idade = 25;
+		String cpf = "12345678910";
+		
+		when(cartorioMock.verificar(cpf)).thenReturn("pendencia");
+		String res = ver.consultarSituacao(idade, cpf);
+			
+		assertEquals("regularize seu titulo", res);
+	}
+	
+	@Test
+	void testeMenorIdade() throws Exception {
+		CartorioEleitoral cartorioMock = mock(CartorioEleitoral.class);
+		VerificadorEleitoral ver = new VerificadorEleitoral(cartorioMock);
+		
 		int idade = 15;
 		String cpf = "12345678910";
 		
 		String res = ver.consultarSituacao(idade, cpf);
 			
 		assertEquals("nao pode votar", res);
+	}
+	
+	@Test
+	void testeVotoFacaTitulo() throws Exception {
+		CartorioEleitoral cartorioMock = mock(CartorioEleitoral.class);
+		VerificadorEleitoral ver = new VerificadorEleitoral(cartorioMock);
+		
+		int idade = 25;
+		String cpf = "12345678910";
+		
+		when(cartorioMock.verificar(cpf)).thenReturn("nao existe");
+		String res = ver.consultarSituacao(idade, cpf);
+			
+		assertEquals("faca um titulo", res);
 	}
 	
 	@Test
@@ -57,7 +99,6 @@ class questao03 {
 	}
 	
 	
-	// valor limite
 	@Test
 	void testeValorLimiteCPF() throws Exception {
 		CartorioEleitoral cartorioMock = mock(CartorioEleitoral.class);

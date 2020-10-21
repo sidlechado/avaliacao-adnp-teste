@@ -15,10 +15,12 @@ public class VerificadorEleitoral {
 		
 		if(idade < 16) return "nao pode votar";
 		
+		
 		if(res.equals("OK")) {
 			if((idade == 16 || idade == 17) || idade > 70) return "voto facultativo";
 			else return "voto obrigatório";
 		} else if(res.equals("nao existe")) return "faca um titulo";
 		else return "regularize seu titulo";
+		
 	}
 }
